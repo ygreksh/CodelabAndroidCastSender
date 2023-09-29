@@ -1,0 +1,4 @@
+#Fri Sep 29 15:02:31 EEST 2023
+base.0=D\:\\WORK\\Android\\TV2\\android_codelab_src\\codelabs-cast-videos-android\\app-done\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,249 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3  Copyright 2016 Google LLC. All rights reserved.
+4
+5  Licensed under the Apache License, Version 2.0 (the "License");
+6  you may not use this file except in compliance with the License.
+7  You may obtain a copy of the License at
+8
+9       http://www.apache.org/licenses/LICENSE-2.0
+10
+11  Unless required by applicable law or agreed to in writing, software
+12  distributed under the License is distributed on an "AS IS" BASIS,
+13  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+14  See the License for the specific language governing permissions and
+15  limitations under the License.
+16-->
+17<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+18    package="com.google.sample.cast.refplayer"
+19    android:versionCode="21"
+20    android:versionName="5.0" >
+21
+22    <uses-sdk
+23        android:minSdkVersion="18"
+23-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml
+24        android:targetSdkVersion="32" />
+24-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml
+25
+26    <uses-permission android:name="android.permission.INTERNET" />
+26-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:19:5-67
+26-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:19:22-64
+27
+28    <!-- This permission is required to start foreground services in Android P. -->
+29    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+29-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:10:5-77
+29-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:10:22-74
+30
+31    <queries>
+31-->[androidx.media:media:1.4.1] C:\Users\comp1\.gradle\caches\transforms-3\9113c311ad4c42536ccd5ce38260d614\transformed\media-1.4.1\AndroidManifest.xml:24:5-28:15
+32        <intent>
+32-->[androidx.media:media:1.4.1] C:\Users\comp1\.gradle\caches\transforms-3\9113c311ad4c42536ccd5ce38260d614\transformed\media-1.4.1\AndroidManifest.xml:25:9-27:18
+33            <action android:name="android.media.browse.MediaBrowserService" />
+33-->[androidx.media:media:1.4.1] C:\Users\comp1\.gradle\caches\transforms-3\9113c311ad4c42536ccd5ce38260d614\transformed\media-1.4.1\AndroidManifest.xml:26:13-79
+33-->[androidx.media:media:1.4.1] C:\Users\comp1\.gradle\caches\transforms-3\9113c311ad4c42536ccd5ce38260d614\transformed\media-1.4.1\AndroidManifest.xml:26:21-76
+34        </intent>
+35    </queries> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+36    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+37    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+37-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
+37-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:25:22-76
+38
+39    <application
+39-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:21:5-74:19
+40        android:allowBackup="true"
+40-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:22:9-35
+41        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+41-->[androidx.core:core:1.8.0] C:\Users\comp1\.gradle\caches\transforms-3\5f4782bafd7932eb0f722e4e69b0daa8\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+42        android:debuggable="true"
+43        android:icon="@drawable/ic_launcher"
+43-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:23:9-45
+44        android:label="@string/app_name"
+44-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:24:9-41
+45        android:testOnly="true"
+46        android:theme="@style/Theme.CastVideosTheme" >
+46-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:25:9-53
+47        <activity
+47-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:27:9-37:20
+48            android:name="com.google.sample.cast.refplayer.VideoBrowserActivity"
+48-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:28:13-81
+49            android:exported="true"
+49-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:31:13-36
+50            android:label="@string/app_name"
+50-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:29:13-45
+51            android:screenOrientation="portrait" >
+51-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:30:13-49
+52            <intent-filter>
+52-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:32:13-36:29
+53                <action android:name="android.intent.action.MAIN" />
+53-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:17-69
+53-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:25-66
+54
+55                <category android:name="android.intent.category.LAUNCHER" />
+55-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:35:17-77
+55-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:35:27-74
+56            </intent-filter>
+57        </activity>
+58        <activity
+58-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:38:9-47:20
+59            android:name="com.google.sample.cast.refplayer.mediaplayer.LocalPlayerActivity"
+59-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:39:13-92
+60            android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout|uiMode"
+60-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:40:13-103
+61            android:exported="true"
+61-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:43:13-36
+62            android:label="@string/app_name"
+62-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:41:13-45
+63            android:launchMode="singleTask" >
+63-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:42:13-44
+64            <intent-filter>
+64-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:44:13-46:29
+65                <action android:name="android.intent.action.MAIN" />
+65-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:17-69
+65-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:25-66
+66            </intent-filter>
+67        </activity>
+68        <activity
+68-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:48:9-56:20
+69            android:name="com.google.sample.cast.refplayer.settings.CastPreference"
+69-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:49:13-84
+70            android:exported="true"
+70-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:52:13-36
+71            android:label="@string/action_settings"
+71-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:51:13-52
+72            android:theme="@style/Theme.AppCompat" >
+72-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:50:13-51
+73            <intent-filter>
+73-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:44:13-46:29
+74                <action android:name="android.intent.action.MAIN" />
+74-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:17-69
+74-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:25-66
+75            </intent-filter>
+76        </activity>
+77        <activity
+77-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:57:9-70:20
+78            android:name="com.google.sample.cast.refplayer.expandedcontrols.ExpandedControlsActivity"
+78-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:58:17-106
+79            android:exported="true"
+79-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:63:17-40
+80            android:label="@string/app_name"
+80-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:59:17-49
+81            android:launchMode="singleInstance"
+81-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:60:17-52
+82            android:screenOrientation="portrait"
+82-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:62:17-53
+83            android:theme="@style/Theme.CastVideosDark" >
+83-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:61:17-60
+84            <intent-filter>
+84-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:44:13-46:29
+85                <action android:name="android.intent.action.MAIN" />
+85-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:17-69
+85-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:33:25-66
+86            </intent-filter>
+87
+88            <meta-data
+88-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:67:13-69:92
+89                android:name="android.support.PARENT_ACTIVITY"
+89-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:68:21-67
+90                android:value="com.google.sample.cast.refplayer.VideoBrowserActivity" />
+90-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:69:21-90
+91        </activity>
+92
+93        <meta-data
+93-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:71:9-73:88
+94            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+94-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:72:17-97
+95            android:value="com.google.sample.cast.refplayer.CastOptionsProvider" />
+95-->D:\WORK\Android\TV2\android_codelab_src\codelabs-cast-videos-android\app-done\app\src\main\AndroidManifest.xml:73:17-85
+96
+97        <receiver
+97-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:13:9-15:40
+98            android:name="com.google.android.gms.cast.framework.media.MediaIntentReceiver"
+98-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:14:13-91
+99            android:exported="false" />
+99-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:15:13-37
+100
+101        <service
+101-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:17:9-20:61
+102            android:name="com.google.android.gms.cast.framework.media.MediaNotificationService"
+102-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:18:13-96
+103            android:exported="false"
+103-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:19:13-37
+104            android:foregroundServiceType="mediaPlayback" />
+104-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:20:13-58
+105        <service
+105-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:21:9-23:40
+106            android:name="com.google.android.gms.cast.framework.ReconnectionService"
+106-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:22:13-85
+107            android:exported="false" />
+107-->[com.google.android.gms:play-services-cast-framework:21.1.0] C:\Users\comp1\.gradle\caches\transforms-3\5e67f770228585ac52f6b04cc41b2754\transformed\jetified-play-services-cast-framework-21.1.0\AndroidManifest.xml:23:13-37
+108
+109        <activity
+109-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\comp1\.gradle\caches\transforms-3\8bd310f4c2ddba0ce66ea9468f68c4da\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+110            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+110-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\comp1\.gradle\caches\transforms-3\8bd310f4c2ddba0ce66ea9468f68c4da\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+111            android:exported="false"
+111-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\comp1\.gradle\caches\transforms-3\8bd310f4c2ddba0ce66ea9468f68c4da\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+112            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+112-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\comp1\.gradle\caches\transforms-3\8bd310f4c2ddba0ce66ea9468f68c4da\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+113
+114        <meta-data
+114-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\comp1\.gradle\caches\transforms-3\c8c7487b1fc6f402cf32327628af0c1e\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
+115            android:name="com.google.android.gms.version"
+115-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\comp1\.gradle\caches\transforms-3\c8c7487b1fc6f402cf32327628af0c1e\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
+116            android:value="@integer/google_play_services_version" />
+116-->[com.google.android.gms:play-services-basement:18.0.0] C:\Users\comp1\.gradle\caches\transforms-3\c8c7487b1fc6f402cf32327628af0c1e\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
+117
+118        <provider
+118-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+119            android:name="androidx.startup.InitializationProvider"
+119-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+120            android:authorities="com.google.sample.cast.refplayer.androidx-startup"
+120-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+121            android:exported="false" >
+121-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+122            <meta-data
+122-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+123                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+123-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+124                android:value="androidx.startup" />
+124-->[androidx.emoji2:emoji2:1.2.0] C:\Users\comp1\.gradle\caches\transforms-3\ac7ec4c101c632d1bda70810b355a611\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+125            <meta-data
+125-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\comp1\.gradle\caches\transforms-3\79407e5a0839a94470762f954d9b865e\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+126                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+126-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\comp1\.gradle\caches\transforms-3\79407e5a0839a94470762f954d9b865e\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+127                android:value="androidx.startup" />
+127-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\comp1\.gradle\caches\transforms-3\79407e5a0839a94470762f954d9b865e\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+128        </provider>
+129
+130        <service
+130-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
+131            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+131-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:30:13-103
+132            android:exported="false" >
+132-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:31:13-37
+133            <meta-data
+133-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:32:13-34:39
+134                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+134-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:33:17-94
+135                android:value="cct" />
+135-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\comp1\.gradle\caches\transforms-3\ca0cccf16781ea0e4122c1973dc88c38\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:34:17-36
+136        </service>
+137        <service
+137-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:26:9-30:19
+138            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+138-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:27:13-117
+139            android:exported="false"
+139-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:28:13-37
+140            android:permission="android.permission.BIND_JOB_SERVICE" >
+140-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:29:13-69
+141        </service>
+142
+143        <receiver
+143-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:32:9-34:40
+144            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+144-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:33:13-132
+145            android:exported="false" />
+145-->[com.google.android.datatransport:transport-runtime:2.2.5] C:\Users\comp1\.gradle\caches\transforms-3\41c77f6113cbd22b0f8707cc68004944\transformed\jetified-transport-runtime-2.2.5\AndroidManifest.xml:34:13-37
+146    </application>
+147
+148</manifest>
