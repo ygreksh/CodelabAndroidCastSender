@@ -16,7 +16,7 @@
 package com.google.sample.cast.refplayer.browser
 
 import android.util.Log
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem
 import org.json.JSONObject
 import org.json.JSONException
 import java.io.*
@@ -77,10 +77,10 @@ class VideoProvider {
         private const val TAG_TITLE = "title"
         const val KEY_DESCRIPTION = "description"
         private const val TARGET_FORMAT = TAG_MP4
-        private var mediaList: MutableList<MediaItem>? = null
+        private var mediaList: MutableList<MyMediaItem>? = null
         @JvmStatic
         @Throws(JSONException::class)
-        fun buildMedia(url: String?): List<MediaItem>? {
+        fun buildMedia(url: String?): List<MyMediaItem>? {
             if (null != mediaList) {
                 return mediaList
             }
@@ -137,8 +137,8 @@ class VideoProvider {
         }
 
         private fun buildMediaInfo(title: String, studio: String, subTitle: String,
-                                   duration: Int, url: String, mimeType: String?, imgUrl: String, bigImageUrl: String): MediaItem {
-            val media = MediaItem()
+                                   duration: Int, url: String, mimeType: String?, imgUrl: String, bigImageUrl: String): MyMediaItem {
+            val media = MyMediaItem()
             media.url = url
             media.title = title
             media.subTitle = subTitle

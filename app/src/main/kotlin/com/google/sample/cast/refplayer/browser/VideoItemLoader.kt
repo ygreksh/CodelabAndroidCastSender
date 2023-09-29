@@ -19,11 +19,11 @@ import android.content.Context
 import android.util.Log
 import androidx.loader.content.AsyncTaskLoader
 import com.google.sample.cast.refplayer.browser.VideoProvider.Companion.buildMedia
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem
 import java.lang.Exception
 
-class VideoItemLoader(context: Context?, private val mUrl: String) : AsyncTaskLoader<List<MediaItem>?>(context!!) {
-    override fun loadInBackground(): List<MediaItem>? {
+class VideoItemLoader(context: Context?, private val mUrl: String) : AsyncTaskLoader<List<MyMediaItem>?>(context!!) {
+    override fun loadInBackground(): List<MyMediaItem>? {
         return try {
             buildMedia(mUrl)
         } catch (e: Exception) {

@@ -15,52 +15,58 @@
  */
 package com.google.sample.cast.refplayer.mediaplayer
 
-import com.google.sample.cast.refplayer.utils.MediaItem.Companion.fromBundle
-import com.google.sample.cast.refplayer.utils.CustomVolleyRequest.Companion.getInstance
-import com.google.sample.cast.refplayer.utils.Utils.isOrientationPortrait
-import com.google.sample.cast.refplayer.utils.Utils.showErrorDialog
-import com.google.sample.cast.refplayer.utils.Utils.formatMillis
-import com.google.sample.cast.refplayer.utils.Utils.getDisplaySize
-import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.toolbox.NetworkImageView
-import com.google.android.gms.cast.framework.CastContext
-import com.google.android.gms.cast.framework.CastSession
-import com.google.android.gms.cast.framework.SessionManagerListener
-import android.os.Bundle
-import com.google.sample.cast.refplayer.R
-import com.google.android.gms.cast.framework.media.RemoteMediaClient
 import android.content.Intent
-import com.google.sample.cast.refplayer.expandedcontrols.ExpandedControlsActivity
-import com.google.android.gms.cast.MediaLoadRequestData
-import android.widget.SeekBar.OnSeekBarChangeListener
 import android.content.res.Configuration
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Looper
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.sample.cast.refplayer.settings.CastPreference
-import androidx.core.app.ActivityCompat
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.*
 import android.widget.*
+import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
+import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.SimpleExoPlayer
+import androidx.media3.ui.PlayerView
 import com.android.volley.toolbox.ImageLoader
+import com.android.volley.toolbox.NetworkImageView
 import com.google.android.gms.cast.MediaInfo
+import com.google.android.gms.cast.MediaLoadRequestData
 import com.google.android.gms.cast.MediaMetadata
 import com.google.android.gms.cast.MediaSeekOptions
+import com.google.android.gms.cast.framework.CastButtonFactory
+import com.google.android.gms.cast.framework.CastContext
+import com.google.android.gms.cast.framework.CastSession
+import com.google.android.gms.cast.framework.SessionManagerListener
+import com.google.android.gms.cast.framework.media.RemoteMediaClient
 import com.google.android.gms.common.images.WebImage
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.R
+import com.google.sample.cast.refplayer.expandedcontrols.ExpandedControlsActivity
+import com.google.sample.cast.refplayer.settings.CastPreference
+import com.google.sample.cast.refplayer.utils.CustomVolleyRequest.Companion.getInstance
+import com.google.sample.cast.refplayer.utils.MyMediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem.Companion.fromBundle
+import com.google.sample.cast.refplayer.utils.Utils.formatMillis
+import com.google.sample.cast.refplayer.utils.Utils.getDisplaySize
+import com.google.sample.cast.refplayer.utils.Utils.isOrientationPortrait
+import com.google.sample.cast.refplayer.utils.Utils.showErrorDialog
 import java.util.*
 
-/**
+@UnstableApi /**
  * Activity for the local media player.
  */
 class LocalPlayerActivity : AppCompatActivity() {
-    private var mVideoView: VideoView? = null
+//    private var mVideoView: VideoView? = null
+    private var mPlayer: SimpleExoPlayer? = null
+    private var mVideoView: PlayerView? = null
     private var mTitleView: TextView? = null
     private var mDescriptionView: TextView? = null
     private var mStartText: TextView? = null
@@ -76,6 +82,7 @@ class LocalPlayerActivity : AppCompatActivity() {
     private var mPlaybackState: PlaybackState? = null
     private val looper = Looper.getMainLooper()
     private val mAspectRatio = 72f / 128
+//    private var mSelectedMedia: MyMediaItem? = null
     private var mSelectedMedia: MediaItem? = null
     private var mControllersVisible = false
     private var mDuration = 0
@@ -105,7 +112,12 @@ class LocalPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.player_activity)
         loadViews()
+        mPlayer = SimpleExoPlayer.Builder(this)
+            .setTrackSelector(0)
+            .build()
+        mVideoView?.player = mPlayer
         setupControlsCallbacks()
+        mPlayer!!.prepare()
 
         mCastContext = CastContext.getSharedInstance(this)
         mCastSession = mCastContext!!.sessionManager.currentCastSession
@@ -113,11 +125,13 @@ class LocalPlayerActivity : AppCompatActivity() {
         // see what we need to play and where
         val bundle = intent.extras
         if (bundle != null) {
-            mSelectedMedia = fromBundle(intent.getBundleExtra("media"))
+//            mSelectedMedia = fromBundle(intent.getBundleExtra("media"))
+            mSelectedMedia =
             setupActionBar()
             val shouldStartPlayback = bundle.getBoolean("shouldStart")
             val startPosition = bundle.getInt("startPosition", 0)
-            mVideoView!!.setVideoURI(Uri.parse(mSelectedMedia!!.url))
+//            mVideoView!!.setVideoURI(Uri.parse(mSelectedMedia!!.url))
+            mPlayer!!.setMediaItem(MyMediaItem())
             Log.d(TAG, "Setting url of the VideoView to: " + mSelectedMedia!!.url)
             if (shouldStartPlayback) {
                 // this will be the case only if we are coming from the
@@ -126,9 +140,11 @@ class LocalPlayerActivity : AppCompatActivity() {
                 updatePlaybackLocation(PlaybackLocation.LOCAL)
                 updatePlayButton(mPlaybackState)
                 if (startPosition > 0) {
-                    mVideoView!!.seekTo(startPosition)
+//                    mVideoView!!.seekTo(startPosition)
+                    mPlayer!!.seekTo(startPosition.toLong())
                 }
-                mVideoView!!.start()
+//                mVideoView!!.start()
+                mPlayer!!.play()
                 startControllersTimer()
             } else {
                 // we should load the video but pause it
