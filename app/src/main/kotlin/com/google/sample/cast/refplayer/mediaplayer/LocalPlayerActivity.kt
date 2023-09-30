@@ -15,51 +15,63 @@
  */
 package com.google.sample.cast.refplayer.mediaplayer
 
-import com.google.sample.cast.refplayer.utils.MediaItem.Companion.fromBundle
-import com.google.sample.cast.refplayer.utils.CustomVolleyRequest.Companion.getInstance
-import com.google.sample.cast.refplayer.utils.Utils.isOrientationPortrait
-import com.google.sample.cast.refplayer.utils.Utils.showErrorDialog
-import com.google.sample.cast.refplayer.utils.Utils.formatMillis
-import com.google.sample.cast.refplayer.utils.Utils.getDisplaySize
-import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.toolbox.NetworkImageView
-import com.google.android.gms.cast.framework.CastContext
-import com.google.android.gms.cast.framework.CastSession
-import com.google.android.gms.cast.framework.SessionManagerListener
-import android.os.Bundle
-import com.google.sample.cast.refplayer.R
-import com.google.android.gms.cast.framework.media.RemoteMediaClient
+import android.content.Context
 import android.content.Intent
-import com.google.sample.cast.refplayer.expandedcontrols.ExpandedControlsActivity
-import com.google.android.gms.cast.MediaLoadRequestData
-import android.widget.SeekBar.OnSeekBarChangeListener
 import android.content.res.Configuration
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Looper
-import com.google.android.gms.cast.framework.CastButtonFactory
-import com.google.sample.cast.refplayer.settings.CastPreference
-import androidx.core.app.ActivityCompat
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.*
 import android.widget.*
+import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.graphics.ColorUtils
 import androidx.core.view.ViewCompat
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.util.Assertions
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
+import androidx.media3.ui.PlayerView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.ImageLoader
+import com.android.volley.toolbox.NetworkImageView
 import com.google.android.gms.cast.MediaInfo
+import com.google.android.gms.cast.MediaLoadRequestData
 import com.google.android.gms.cast.MediaMetadata
 import com.google.android.gms.cast.MediaSeekOptions
+import com.google.android.gms.cast.framework.CastButtonFactory
+import com.google.android.gms.cast.framework.CastContext
+import com.google.android.gms.cast.framework.CastSession
+import com.google.android.gms.cast.framework.SessionManagerListener
+import com.google.android.gms.cast.framework.media.RemoteMediaClient
 import com.google.android.gms.common.images.WebImage
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.R
+import com.google.sample.cast.refplayer.expandedcontrols.ExpandedControlsActivity
+import com.google.sample.cast.refplayer.settings.CastPreference
+import com.google.sample.cast.refplayer.utils.CustomVolleyRequest.Companion.getInstance
+import com.google.sample.cast.refplayer.utils.MyMediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem.Companion.fromBundle
+import com.google.sample.cast.refplayer.utils.Utils.formatMillis
+import com.google.sample.cast.refplayer.utils.Utils.getDisplaySize
+import com.google.sample.cast.refplayer.utils.Utils.isOrientationPortrait
+import com.google.sample.cast.refplayer.utils.Utils.showErrorDialog
+import com.google.sample.cast.refplayer.utils.Utils.showToast
 import java.util.*
 
-/**
+
+@UnstableApi /**
  * Activity for the local media player.
  */
-class LocalPlayerActivity : AppCompatActivity() {
+class LocalPlayerActivity : AppCompatActivity(), PlayerManager.Listener {
     private var mVideoView: VideoView? = null
     private var mTitleView: TextView? = null
     private var mDescriptionView: TextView? = null
@@ -76,7 +88,7 @@ class LocalPlayerActivity : AppCompatActivity() {
     private var mPlaybackState: PlaybackState? = null
     private val looper = Looper.getMainLooper()
     private val mAspectRatio = 72f / 128
-    private var mSelectedMedia: MediaItem? = null
+    private var mSelectedMedia: MyMediaItem? = null
     private var mControllersVisible = false
     private var mDuration = 0
     private var mAuthorView: TextView? = null
@@ -86,6 +98,15 @@ class LocalPlayerActivity : AppCompatActivity() {
     private var mCastSession: CastSession? = null
     private var mSessionManagerListener: SessionManagerListener<CastSession>? = null
     private var mediaRouteMenuItem: MenuItem? = null
+
+
+
+    private val playerView: PlayerView? = null
+    private val playerManager: PlayerManager? = null
+    private val mediaQueueList: RecyclerView? = null
+    private val mediaQueueListAdapter: LocalPlayerActivity.MediaQueueListAdapter? =
+        null
+    private val castContext: CastContext? = null
 
     /**
      * indicates whether we are doing a local or a remote playback
@@ -649,5 +670,132 @@ class LocalPlayerActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "LocalPlayerActivity"
+    }
+
+    // Internal classes.
+    private class MediaQueueListAdapter :
+        RecyclerView.Adapter<LocalPlayerActivity.QueueItemViewHolder>() {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): LocalPlayerActivity.QueueItemViewHolder {
+            val v = LayoutInflater.from(parent.context)
+                .inflate(android.R.layout.simple_list_item_1, parent, false) as TextView
+            return LocalPlayerActivity.QueueItemViewHolder(v)
+        }
+
+        override fun onBindViewHolder(
+            holder: LocalPlayerActivity.QueueItemViewHolder,
+            position: Int
+        ) {
+            holder.item = Assertions.checkNotNull(playerManager.getItem(position))
+            val view: TextView = holder.textView
+            view.setText(holder.item.mediaMetadata.title)
+            // TODO: Solve coloring using the theme's ColorStateList.
+            view.setTextColor(
+                ColorUtils.setAlphaComponent(
+                    view.currentTextColor,
+                    if (position == playerManager.getCurrentItemIndex()) 255 else 100
+                )
+            )
+        }
+
+        override fun getItemCount(): Int {
+            return playerManager.getMediaQueueSize()
+        }
+    }
+
+    private class RecyclerViewCallback :
+        ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.START or ItemTouchHelper.END
+        ) {
+        private var draggingFromPosition: Int
+        private var draggingToPosition: Int
+
+        init {
+            draggingFromPosition = C.INDEX_UNSET
+            draggingToPosition = C.INDEX_UNSET
+        }
+
+        override fun onMove(
+            list: RecyclerView, origin: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
+        ): Boolean {
+            val fromPosition = origin.bindingAdapterPosition
+            val toPosition = target.bindingAdapterPosition
+            if (draggingFromPosition == C.INDEX_UNSET) {
+                // A drag has started, but changes to the media queue will be reflected in clearView().
+                draggingFromPosition = fromPosition
+            }
+            draggingToPosition = toPosition
+            mediaQueueListAdapter.notifyItemMoved(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.bindingAdapterPosition
+            val queueItemHolder = viewHolder as QueueItemViewHolder
+            if (playerManager.removeItem(queueItemHolder.item)) {
+                mediaQueueListAdapter.notifyItemRemoved(position)
+                // Update whichever item took its place, in case it became the new selected item.
+                mediaQueueListAdapter.notifyItemChanged(position)
+            }
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            if (draggingFromPosition != C.INDEX_UNSET) {
+                val queueItemHolder = viewHolder as QueueItemViewHolder
+                // A drag has ended. We reflect the media queue change in the player.
+                if (!playerManager.moveItem(queueItemHolder.item, draggingToPosition)) {
+                    // The move failed. The entire sequence of onMove calls since the drag started needs to be
+                    // invalidated.
+                    mediaQueueListAdapter.notifyDataSetChanged()
+                }
+            }
+            draggingFromPosition = C.INDEX_UNSET
+            draggingToPosition = C.INDEX_UNSET
+        }
+    }
+
+    private class QueueItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(
+        textView
+    ),
+        View.OnClickListener {
+        var item: MediaItem? = null
+
+        init {
+            textView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            playerManager.selectQueueItem(bindingAdapterPosition)
+        }
+    }
+
+    private class SampleListAdapter(context: Context?) :
+        ArrayAdapter<MediaItem?>(context, android.R.layout.simple_list_item_1, DemoUtil.SAMPLES) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = super.getView(position, convertView, parent)
+            (view as TextView).text = Util.castNonNull(getItem(position)).mediaMetadata.title
+            return view
+        }
+    }
+
+    override fun onQueuePositionChanged(previousIndex: Int, newIndex: Int) {
+        if (previousIndex != C.INDEX_UNSET) {
+            mediaQueueListAdapter!!.notifyItemChanged(previousIndex)
+        }
+        if (newIndex != C.INDEX_UNSET) {
+            mediaQueueListAdapter!!.notifyItemChanged(newIndex)
+        }
+    }
+
+    override fun onUnsupportedTrack(trackType: Int) {
+        if (trackType == C.TRACK_TYPE_AUDIO) {
+            showToast("Media includes audio tracks, but none are playable by this device")
+        } else if (trackType == C.TRACK_TYPE_VIDEO) {
+            showToast("Media includes video tracks, but none are playable by this device")
+        }
     }
 }

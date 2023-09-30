@@ -21,7 +21,7 @@ import java.util.ArrayList
 /**
  * Class representing local media metadata.
  */
-class MediaItem {
+class MyMediaItem {
     var title: String? = null
     var subTitle: String? = null
     var studio: String? = null
@@ -68,11 +68,11 @@ class MediaItem {
         const val KEY_IMAGES = "images"
         const val KEY_CONTENT_TYPE = "content-type"
         @JvmStatic
-        fun fromBundle(wrapper: Bundle?): MediaItem? {
+        fun fromBundle(wrapper: Bundle?): MyMediaItem? {
             if (null == wrapper) {
                 return null
             }
-            val media = MediaItem()
+            val media = MyMediaItem()
             media.url = wrapper.getString(KEY_URL)
             media.title = wrapper.getString(KEY_TITLE)
             media.subTitle = wrapper.getString(KEY_SUBTITLE)

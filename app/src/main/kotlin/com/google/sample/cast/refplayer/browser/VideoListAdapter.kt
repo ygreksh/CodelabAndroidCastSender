@@ -26,14 +26,14 @@ import com.google.sample.cast.refplayer.R
 import com.android.volley.toolbox.NetworkImageView
 import android.widget.TextView
 import com.android.volley.toolbox.ImageLoader
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem
 
 /**
  * An [ArrayAdapter] to populate the list of videos.
  */
 class VideoListAdapter(private val mClickListener: ItemClickListener, context: Context) : RecyclerView.Adapter<VideoListAdapter.ViewHolder>() {
     private val mAppContext: Context
-    private var videos: List<MediaItem>? = null
+    private var videos: List<MyMediaItem>? = null
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val context = viewGroup.context
         val parent = LayoutInflater.from(context).inflate(R.layout.browse_row, viewGroup, false)
@@ -89,13 +89,13 @@ class VideoListAdapter(private val mClickListener: ItemClickListener, context: C
         }
     }
 
-    fun setData(data: List<MediaItem>?) {
+    fun setData(data: List<MyMediaItem>?) {
         videos = data
         notifyDataSetChanged()
     }
 
     interface ItemClickListener {
-        fun itemClicked(v: View?, item: MediaItem?, position: Int)
+        fun itemClicked(v: View?, item: MyMediaItem?, position: Int)
     }
 
     override fun getItemId(position: Int): Long {

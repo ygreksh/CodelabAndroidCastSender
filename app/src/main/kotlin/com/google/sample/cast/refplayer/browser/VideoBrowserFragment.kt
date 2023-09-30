@@ -31,12 +31,12 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.Loader
-import com.google.sample.cast.refplayer.utils.MediaItem
+import com.google.sample.cast.refplayer.utils.MyMediaItem
 
 /**
  * A fragment to host a list view of the video catalog.
  */
-class VideoBrowserFragment : Fragment(), ItemClickListener, LoaderManager.LoaderCallbacks<List<MediaItem>?> {
+class VideoBrowserFragment : Fragment(), ItemClickListener, LoaderManager.LoaderCallbacks<List<MyMediaItem>?> {
     private var mRecyclerView: RecyclerView? = null
     private var mAdapter: VideoListAdapter? = null
     private var mEmptyView: View? = null
@@ -59,7 +59,7 @@ class VideoBrowserFragment : Fragment(), ItemClickListener, LoaderManager.Loader
         LoaderManager.getInstance(this).initLoader(0, null, this)
     }
 
-    override fun itemClicked(v: View?, item: MediaItem?, position: Int) {
+    override fun itemClicked(v: View?, item: MyMediaItem?, position: Int) {
         val transitionName = getString(R.string.transition_image)
         val viewHolder = mRecyclerView!!.findViewHolderForLayoutPosition(position) as VideoListAdapter.ViewHolder?
         val imagePair = Pair
@@ -72,17 +72,17 @@ class VideoBrowserFragment : Fragment(), ItemClickListener, LoaderManager.Loader
         ActivityCompat.startActivity(requireActivity(), intent, options.toBundle())
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<MediaItem>?> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<MyMediaItem>?> {
         return VideoItemLoader(activity, CATALOG_URL)
     }
 
-    override fun onLoadFinished(loader: Loader<List<MediaItem>?>, data: List<MediaItem>?) {
+    override fun onLoadFinished(loader: Loader<List<MyMediaItem>?>, data: List<MyMediaItem>?) {
         mAdapter!!.setData(data)
         mLoadingView!!.visibility = View.GONE
         mEmptyView!!.visibility = if (null == data || data.isEmpty()) View.VISIBLE else View.GONE
     }
 
-    override fun onLoaderReset(loader: Loader<List<MediaItem>?>) {
+    override fun onLoaderReset(loader: Loader<List<MyMediaItem>?>) {
         mAdapter!!.setData(null)
     }
 

@@ -17,12 +17,11 @@ package com.google.sample.cast.refplayer.utils
 
 import android.app.AlertDialog
 import android.content.Context
-import android.view.WindowManager
-import com.google.sample.cast.refplayer.R
 import android.content.res.Configuration
 import android.graphics.Point
+import android.view.WindowManager
 import android.widget.Toast
-import java.lang.Exception
+import com.google.sample.cast.refplayer.R
 
 /**
  * A collection of utility methods, all static.
@@ -95,8 +94,13 @@ object Utils {
     /**
      * Shows a (long) toast.
      */
-    fun showToast(context: Context, resourceId: Int) {
-        Toast.makeText(context, context.getString(resourceId), Toast.LENGTH_LONG).show()
+//    fun showToast(context: Context, resourceId: Int) {
+//        Toast.makeText(context, context.getString(resourceId), Toast.LENGTH_LONG).show()
+//    }
+
+    // Internal methods.
+    private open fun showToast(messageId: Int) {
+        Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_LONG).show()
     }
 
     /**
